@@ -20,8 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ch2ps090.equifit.theme.HelloJetpackComposeTheme
-import com.ch2ps090.equifit.theme.integralFontFamily
+import com.ch2ps090.equifit.theme.EquifitTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,36 +39,37 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            HelloJetpackComposeTheme {
+            EquifitTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.onboarding_1),
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxSize(),
-                        )
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 300.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Text(
-                                text = "ANALYSIS BODY POSTURE,",
-                                style = MaterialTheme.typography.titleLarge,
-                            )
-                            Text(
-                                text = "START YOUR JOURNEY",
-                                style = MaterialTheme.typography.titleLarge,
-                            )
-                        }
-                    }
+                    EquifitApp()
+//                    Box(
+//                        modifier = Modifier.fillMaxSize(),
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        Image(
+//                            painter = painterResource(R.drawable.onboarding_1),
+//                            contentDescription = null,
+//                            modifier = Modifier.fillMaxSize(),
+//                        )
+//                        Column(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .padding(top = 300.dp),
+//                            horizontalAlignment = Alignment.CenterHorizontally,
+//                        ) {
+//                            Text(
+//                                text = "ANALYSIS BODY POSTURE,",
+//                                style = MaterialTheme.typography.titleLarge,
+//                            )
+//                            Text(
+//                                text = "START YOUR JOURNEY",
+//                                style = MaterialTheme.typography.titleLarge,
+//                            )
+//                        }
+//                    }
                 }
             }
         }
