@@ -21,6 +21,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ch2ps090.equifit.theme.HelloJetpackComposeTheme
+import com.ch2ps090.equifit.theme.integralFontFamily
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -60,10 +61,12 @@ class MainActivity : ComponentActivity() {
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             Text(
-                                text = "Welcome to EquiFit",
+                                text = "ANALYSIS BODY POSTURE,",
+                                style = MaterialTheme.typography.titleLarge,
                             )
                             Text(
-                                text = "Your personal fitness trainer"
+                                text = "START YOUR JOURNEY",
+                                style = MaterialTheme.typography.titleLarge,
                             )
                         }
                     }
