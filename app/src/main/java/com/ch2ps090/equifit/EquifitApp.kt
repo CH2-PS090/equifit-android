@@ -24,7 +24,10 @@ import com.ch2ps090.equifit.ui.screen.home.HomeScreen
 import com.ch2ps090.equifit.ui.screen.notification.NotificationScreen
 import com.ch2ps090.equifit.ui.screen.profile.ProfileScreen
 import com.ch2ps090.equifit.theme.Dark2
+import com.ch2ps090.equifit.ui.screen.welcome.WelcomeScreen
+import com.google.accompanist.pager.ExperimentalPagerApi
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun EquifitApp(
     modifier: Modifier = Modifier,
@@ -35,17 +38,24 @@ fun EquifitApp(
 
     Scaffold(
         bottomBar = {
-             if (currentRoute != Screen.Notification.route) {
-                 BottomBar(navController)
-             }
+            if (currentRoute != Screen.Welcome.route) {
+                BottomBar(navController)
+            }
         },
         modifier = modifier
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Welcome.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable(Screen.Welcome.route) {
+                WelcomeScreen(
+                    navigateToHome = {
+                        navController.navigate(Screen.Home.route)
+                    }
+                )
+            }
             composable(Screen.Home.route) {
                 HomeScreen()
             }
