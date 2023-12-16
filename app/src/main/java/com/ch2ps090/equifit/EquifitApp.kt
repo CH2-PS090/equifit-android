@@ -24,6 +24,8 @@ import com.ch2ps090.equifit.ui.screen.home.HomeScreen
 import com.ch2ps090.equifit.ui.screen.notification.NotificationScreen
 import com.ch2ps090.equifit.ui.screen.profile.ProfileScreen
 import com.ch2ps090.equifit.theme.Dark2
+import com.ch2ps090.equifit.ui.screen.auth.LoginScreen
+import com.ch2ps090.equifit.ui.screen.auth.RegisterScreen
 import com.ch2ps090.equifit.ui.screen.welcome.WelcomeScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -38,7 +40,10 @@ fun EquifitApp(
 
     Scaffold(
         bottomBar = {
-            if (currentRoute != Screen.Welcome.route) {
+            if (
+                currentRoute != Screen.Welcome.route
+                && currentRoute != Screen.Login.route
+                && currentRoute != Screen.Register.route ) {
                 BottomBar(navController)
             }
         },
@@ -52,7 +57,51 @@ fun EquifitApp(
             composable(Screen.Welcome.route) {
                 WelcomeScreen(
                     navigateToHome = {
-                        navController.navigate(Screen.Home.route)
+                        navController.navigate(Screen.Login.route)
+                    }
+                )
+            }
+            composable(Screen.Login.route) {
+                LoginScreen(
+                    navigateToRegister = {
+                        navController.navigate(Screen.Register.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            restoreState = true
+                            launchSingleTop = true
+                        }
+                    },
+                    navigateToHome = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            restoreState = true
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+            composable(Screen.Register.route) {
+                RegisterScreen(
+                    navigateToLogin = {
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            restoreState = true
+                            launchSingleTop = true
+                        }
+                    },
+                    navigateToHome = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            restoreState = true
+                            launchSingleTop = true
+                        }
                     }
                 )
             }

@@ -30,6 +30,7 @@ import com.ch2ps090.equifit.theme.Dark2
 import com.ch2ps090.equifit.theme.EquifitTheme
 import com.ch2ps090.equifit.theme.Primary
 import com.ch2ps090.equifit.theme.White
+import com.ch2ps090.equifit.ui.components.ButtonPrimary
 import com.ch2ps090.equifit.util.OnBoardingItems
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -161,7 +162,7 @@ fun OnBoardingItem(
                 style = MaterialTheme.typography.titleLarge,
             )
             if (item.id == 3) {
-                StartButton(
+                ButtonPrimary(
                     text = "Start Now",
                     modifier = Modifier.padding(top = 24.dp),
                     onClick = {
@@ -174,33 +175,10 @@ fun OnBoardingItem(
 }
 
 @Composable
-fun StartButton(
-    text: String,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        colors = ButtonDefaults.buttonColors(containerColor = Primary),
-        modifier = modifier
-            .width(200.dp)
-            .height(52.dp)
-    ) {
-        Text(
-            text = text,
-            color = Dark1,
-            modifier = Modifier.align(Alignment.CenterVertically)
-        )
-    }
-}
-
-@Composable
 @Preview(showBackground = true)
 fun OrderButtonPreview() {
     EquifitTheme {
-        StartButton(
+        ButtonPrimary(
             text = "Start Now",
             onClick = {}
         )

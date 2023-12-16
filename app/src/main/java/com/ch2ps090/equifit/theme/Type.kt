@@ -48,9 +48,42 @@ val Typography = Typography(
     )
 )
 
+val titleLargeIntegralRegular = TextStyle(
+    fontFamily = integralFontFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 24.sp,
+    lineHeight = 20.sp,
+    letterSpacing = 0.sp
+)
+
+val subTitleIntegralRegular = TextStyle(
+    fontFamily = integralFontFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 12.sp,
+    lineHeight = 20.sp,
+    letterSpacing = 0.sp
+)
+
 val titleLargeOpenSans = TextStyle(
     fontFamily = openSansFontFamily,
     fontWeight = FontWeight.Bold,
+    fontSize = 14.sp,
+    lineHeight = 20.sp,
+    letterSpacing = 0.sp
+)
+
+val textButtonOpenSans = TextStyle(
+    fontFamily = openSansFontFamily,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 14.sp,
+    lineHeight = 20.sp,
+    letterSpacing = 0.sp,
+    color = Dark1
+)
+
+val textBodyRegularOpenSans = TextStyle(
+    fontFamily = openSansFontFamily,
+    fontWeight = FontWeight.Normal,
     fontSize = 14.sp,
     lineHeight = 20.sp,
     letterSpacing = 0.sp
