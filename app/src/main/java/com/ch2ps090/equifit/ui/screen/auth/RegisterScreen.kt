@@ -17,14 +17,19 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ch2ps090.equifit.R
+import com.ch2ps090.equifit.data.repository.UserRepository
 import com.ch2ps090.equifit.theme.Dark1
 import com.ch2ps090.equifit.theme.Dark2
 import com.ch2ps090.equifit.theme.Primary
@@ -35,13 +40,16 @@ import com.ch2ps090.equifit.theme.titleLargeIntegralRegular
 import com.ch2ps090.equifit.ui.components.ButtonPrimary
 import com.ch2ps090.equifit.ui.components.ButtonPrimaryFullWidth
 import com.ch2ps090.equifit.ui.components.CustomTextField
+import com.ch2ps090.equifit.ui.screen.ViewModelFactory
 
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
     navigateToLogin: () -> Unit,
     navigateToHome: () -> Unit,
+    //viewModel: RegisterViewModel = viewModel(factory = ViewModelFactory), -> bingung gimana set viewModelnya klo private repo
 ) {
+    //var usernameState by remember { mutableStateOf("") } -> also ini knp ga bisa diinitiate buat nyimpen hasil TextField :"D
     Box(
         modifier = modifier
             .background(Dark2)
@@ -111,6 +119,7 @@ fun RegisterScreen(
                 text = "Register",
                 modifier = Modifier.padding(vertical = 50.dp),
                 onClick = {
+                    //viewModel.registerUser(name, email. password)
                     navigateToHome()
                 }
             )
