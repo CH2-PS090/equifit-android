@@ -1,5 +1,8 @@
 package com.ch2ps090.equifit
 
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
@@ -32,12 +35,14 @@ import com.ch2ps090.equifit.ui.common.UiState
 import com.ch2ps090.equifit.ui.common.ViewModelFactory
 import com.ch2ps090.equifit.ui.screen.auth.login.LoginScreen
 import com.ch2ps090.equifit.ui.screen.auth.register.RegisterScreen
+import com.ch2ps090.equifit.ui.screen.home.detail.DetailExerciseScreen
 import com.ch2ps090.equifit.ui.screen.profile.contact.ContactScreen
 import com.ch2ps090.equifit.ui.screen.profile.edit.EditProfileScreen
 import com.ch2ps090.equifit.ui.screen.profile.privacy.PrivacyScreen
 import com.ch2ps090.equifit.ui.screen.welcome.WelcomeScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun EquifitApp(
@@ -68,11 +73,12 @@ fun EquifitApp(
                     modifier = modifier
                 ) { innerPadding ->
                     val isLogin = uiState.data.isLogin
+                    val isOnboarding = uiState.data.isOnboarding
+                    Log.e("isLogin", isLogin.toString())
+                    Log.e("isOnboarding", isOnboarding.toString())
                     var destination = Screen.Welcome.route
                     if (isLogin) {
                         destination = Screen.Home.route
-                    } else {
-                        destination = Screen.Login.route
                     }
                     NavHost(
                         navController = navController,
@@ -89,13 +95,21 @@ fun EquifitApp(
                             RegisterScreen(navController = navController)
                         }
                         composable(Screen.Home.route) {
-                            HomeScreen()
+                            HomeScreen(navController = navController)
+                        }
+                        composable(Screen.DetailExercise.route) { navBackStackEntry ->
+                            val exerciseName = navBackStackEntry.arguments?.getString("exerciseName")
+                            if (exerciseName != null) {
+                                DetailExerciseScreen(exerciseName = exerciseName, navController = navController)
+                            } else {
+                                Log.e("DetailExerciseScreen", "exerciseName is null")
+                            }
                         }
                         composable(Screen.Camera.route) {
-                            CameraScreen()
+                            CameraScreen(navController = navController)
                         }
                         composable(Screen.Notification.route) {
-                            NotificationScreen()
+                            NotificationScreen(navController = navController)
                         }
                         composable(Screen.Profile.route) {
                             ProfileScreen(navController = navController)
@@ -170,6 +184,11 @@ private fun BottomBar(
     }
 }
 
+fun formatCapitalize(text: String): String {
+    return text.split("_").joinToString(" ") { it.capitalize() }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun EquifitAppPreview() {

@@ -6,6 +6,8 @@ import com.ch2ps090.equifit.MainViewModel
 import com.ch2ps090.equifit.data.repository.Repository
 import com.ch2ps090.equifit.ui.screen.auth.login.LoginViewModel
 import com.ch2ps090.equifit.ui.screen.auth.register.RegisterViewModel
+import com.ch2ps090.equifit.ui.screen.home.HomeViewModel
+import com.ch2ps090.equifit.ui.screen.home.detail.DetailExerciseViewModel
 import com.ch2ps090.equifit.ui.screen.profile.ProfileViewModel
 
 class ViewModelFactory(private val repository: Repository): ViewModelProvider.NewInstanceFactory() {
@@ -15,6 +17,10 @@ class ViewModelFactory(private val repository: Repository): ViewModelProvider.Ne
             return LoginViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+            return HomeViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(DetailExerciseViewModel::class.java)) {
+            return DetailExerciseViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
             return ProfileViewModel(repository) as T
         }

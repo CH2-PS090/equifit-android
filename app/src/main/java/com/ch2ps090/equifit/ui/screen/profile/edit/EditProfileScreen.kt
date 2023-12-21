@@ -2,6 +2,7 @@ package com.ch2ps090.equifit.ui.screen.profile.edit
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import com.ch2ps090.equifit.R
 import com.ch2ps090.equifit.theme.Dark2
 import com.ch2ps090.equifit.theme.White
 import com.ch2ps090.equifit.theme.subTitleLargeIntegralRegular
+import com.ch2ps090.equifit.ui.navigation.Screen
 
 @Composable
 fun EditProfileScreen(
@@ -48,7 +50,9 @@ fun EditProfileScreen(
                 Image(
                     painter = painterResource(id = R.drawable.ic_circle_arrow_left),
                     contentDescription = null,
-                    modifier = Modifier
+                    modifier = Modifier.clickable {
+                        navController.navigate(Screen.Profile.route)
+                    }
                 )
                 Spacer(modifier = Modifier.width(24.dp))
                 Text(

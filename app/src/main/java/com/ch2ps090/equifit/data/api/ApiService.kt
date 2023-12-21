@@ -57,6 +57,7 @@ interface ApiExercisesService {
     fun getExercises(
         @Header("X-RapidAPI-Key") key: String = "447d4474e4msh645ae35df0d0300p16c1b4jsn21c859fd3275",
         @Header("X-RapidAPI-Host") host: String = "exercises-by-api-ninjas.p.rapidapi.com",
+        @Query("name") name: String? = null,
         @Query("type") type: String? = null,
         @Query("muscle") muscle: String? = null,
         @Query("difficulty") difficulty: String? = null,

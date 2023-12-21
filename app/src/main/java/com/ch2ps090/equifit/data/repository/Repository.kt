@@ -26,6 +26,10 @@ class Repository private constructor(
         return userPreferences.getSession()
     }
 
+    suspend fun getToken(): String {
+        return userPreferences.getToken()
+    }
+
     suspend fun logout() {
         userPreferences.logout()
     }

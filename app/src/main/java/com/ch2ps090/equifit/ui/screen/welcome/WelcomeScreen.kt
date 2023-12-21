@@ -21,16 +21,21 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.ch2ps090.equifit.MainViewModel
+import com.ch2ps090.equifit.di.Injection
 import com.ch2ps090.equifit.theme.Dark1
 import com.ch2ps090.equifit.theme.Dark2
 import com.ch2ps090.equifit.theme.EquifitTheme
 import com.ch2ps090.equifit.theme.Primary
 import com.ch2ps090.equifit.theme.White
+import com.ch2ps090.equifit.ui.common.ViewModelFactory
 import com.ch2ps090.equifit.ui.components.ButtonPrimary
 import com.ch2ps090.equifit.ui.navigation.Screen
 import com.ch2ps090.equifit.util.OnBoardingItems
@@ -138,7 +143,7 @@ fun Indicator(isSelected: Boolean) {
 @Composable
 fun OnBoardingItem(
     item: OnBoardingItems,
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
