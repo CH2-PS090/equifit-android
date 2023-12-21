@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.ch2ps090.equifit.data.api.ApiConfig
 import com.ch2ps090.equifit.data.pref.UserModel
 import com.ch2ps090.equifit.data.repository.Repository
-import com.ch2ps090.equifit.data.response.LoginResponse
+import com.ch2ps090.equifit.data.response.LogoutResponse
 import com.ch2ps090.equifit.ui.common.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,10 +30,10 @@ class ProfileViewModel(private val repository: Repository): ViewModel() {
 
     fun logout() {
         val client = ApiConfig.getApiService().logout()
-        client.enqueue(object : Callback<LoginResponse> {
+        client.enqueue(object : Callback<LogoutResponse> {
             override fun onResponse(
-                call: Call<LoginResponse>,
-                response: Response<LoginResponse>
+                call: Call<LogoutResponse>,
+                response: Response<LogoutResponse>
             ) {
                 if (response.isSuccessful) {
                     Log.i("response.isSuccessful", "success")
@@ -41,7 +41,7 @@ class ProfileViewModel(private val repository: Repository): ViewModel() {
                 else Log.e("LoginViewModel", "onFailure: ${response.errorBody()}")
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
                 Log.e("LoginViewModel", "onFailure: ${t.message}")
             }
         })

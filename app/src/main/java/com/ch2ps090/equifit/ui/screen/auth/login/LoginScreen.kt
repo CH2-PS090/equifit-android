@@ -54,11 +54,8 @@ import com.ch2ps090.equifit.theme.titleLargeIntegralRegular
 import com.ch2ps090.equifit.ui.common.UiState
 import com.ch2ps090.equifit.ui.common.ViewModelFactory
 import com.ch2ps090.equifit.ui.components.ButtonPrimaryFullWidth
-import com.ch2ps090.equifit.ui.components.CustomTextField
 import com.ch2ps090.equifit.ui.navigation.Screen
 import com.ch2ps090.equifit.ui.screen.auth.register.LoadingIndicator
-import com.ch2ps090.equifit.ui.screen.auth.register.RegisterContent
-import com.ch2ps090.equifit.ui.screen.auth.register.RegisterViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody

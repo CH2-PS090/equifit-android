@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,6 +51,7 @@ import com.ch2ps090.equifit.theme.textBodySemiBoldOpenSans
 import com.ch2ps090.equifit.theme.titleLargeIntegralRegular
 import com.ch2ps090.equifit.ui.common.UiState
 import com.ch2ps090.equifit.ui.common.ViewModelFactory
+import com.ch2ps090.equifit.ui.components.ButtonCustom
 import com.ch2ps090.equifit.ui.navigation.Screen
 
 @Composable
@@ -75,6 +78,8 @@ fun ProfileScreen(
             is UiState.Loading -> {}
         }
     }
+
+    val openDialog = remember { mutableStateOf(false)  }
 
     Box(
         modifier = modifier
@@ -163,11 +168,11 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(24.dp))
             Row (
                 modifier = Modifier.fillMaxWidth().clickable {
-                    navController.navigate(Screen.Settings.route)
+                    navController.navigate(Screen.Contact.route)
                 }
             ) {
                 Text(
-                    text = stringResource(R.string.settings),
+                    text = stringResource(R.string.contact_us),
                     style = textBodySemiBoldOpenSans,
                     color = White
                 )
@@ -181,7 +186,11 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(24.dp))
             Divider(color = Dark3, thickness = 1.dp)
             Spacer(modifier = Modifier.height(24.dp))
-            Row (modifier = Modifier.fillMaxWidth()) {
+            Row (
+                modifier = Modifier.fillMaxWidth().clickable {
+                    openDialog.value = true
+                }
+            ) {
                 Text(
                     text = stringResource(R.string.sign_out),
                     style = textBodySemiBoldOpenSans,
@@ -190,6 +199,49 @@ fun ProfileScreen(
             }
             Spacer(modifier = Modifier.height(24.dp))
             Divider(color = Dark3, thickness = 1.dp)
+            if (openDialog.value) {
+                AlertDialog(
+                    onDismissRequest = {
+                        openDialog.value = false
+                    },
+                    title = {
+                        Text(
+                            text = "Are you sure to logout?",
+                            style = textBodySemiBoldOpenSans,
+                            color = White
+                        )
+                    },
+                    text = {
+                        Text(
+                            text = "You will be logged out of the app.",
+                            style = textBodyRegularOpenSans,
+                            color = White
+                        )
+                    },
+                    confirmButton = {
+                        ButtonCustom(
+                            text = "Yes",
+                            color = Color.Red,
+                            textColor = White,
+                            onClick = {
+                                openDialog.value = false
+                                viewModel.logout()
+                                viewModel.clearPreference()
+                            }
+                        )
+                    },
+                    dismissButton = {
+                        ButtonCustom(
+                            text = "No",
+                            color = Gray,
+                            textColor = White,
+                            onClick = {
+                                openDialog.value = false
+                            }
+                        )
+                    }
+                )
+            }
         }
     }
 }

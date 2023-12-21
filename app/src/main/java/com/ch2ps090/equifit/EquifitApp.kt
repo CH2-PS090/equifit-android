@@ -32,9 +32,9 @@ import com.ch2ps090.equifit.ui.common.UiState
 import com.ch2ps090.equifit.ui.common.ViewModelFactory
 import com.ch2ps090.equifit.ui.screen.auth.login.LoginScreen
 import com.ch2ps090.equifit.ui.screen.auth.register.RegisterScreen
+import com.ch2ps090.equifit.ui.screen.profile.contact.ContactScreen
 import com.ch2ps090.equifit.ui.screen.profile.edit.EditProfileScreen
 import com.ch2ps090.equifit.ui.screen.profile.privacy.PrivacyScreen
-import com.ch2ps090.equifit.ui.screen.profile.settings.SettingScreen
 import com.ch2ps090.equifit.ui.screen.welcome.WelcomeScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -106,8 +106,8 @@ fun EquifitApp(
                         composable(Screen.PrivacyPolicy.route) {
                             PrivacyScreen(navController = navController)
                         }
-                        composable(Screen.Settings.route) {
-                            SettingScreen(navController = navController)
+                        composable(Screen.Contact.route) {
+                            ContactScreen(navController = navController)
                         }
                     }
                 }

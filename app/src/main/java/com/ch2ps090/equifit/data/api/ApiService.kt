@@ -2,6 +2,7 @@ package com.ch2ps090.equifit.data.api
 
 import com.ch2ps090.equifit.data.response.ExercisesResponse
 import com.ch2ps090.equifit.data.response.LoginResponse
+import com.ch2ps090.equifit.data.response.LogoutResponse
 import com.ch2ps090.equifit.data.response.PredictResponse
 import com.ch2ps090.equifit.data.response.RegisterResponse
 import okhttp3.MultipartBody
@@ -34,8 +35,8 @@ interface ApiService {
         @Part("password") password: RequestBody
     ): Call<LoginResponse>
 
-    @DELETE("logout")
-    fun logout(): Call<LoginResponse>
+    @GET("logout")
+    fun logout(): Call<LogoutResponse>
 }
 
 interface ApiPredictService {
