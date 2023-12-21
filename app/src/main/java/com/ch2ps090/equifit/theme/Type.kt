@@ -52,7 +52,15 @@ val titleLargeIntegralRegular = TextStyle(
     fontFamily = integralFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 24.sp,
-    lineHeight = 20.sp,
+    lineHeight = 32.sp,
+    letterSpacing = 0.sp
+)
+
+val subTitleLargeIntegralRegular = TextStyle(
+    fontFamily = integralFontFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 20.sp,
+    lineHeight = 32.sp,
     letterSpacing = 0.sp
 )
 
@@ -85,6 +93,14 @@ val textBodyRegularOpenSans = TextStyle(
     fontFamily = openSansFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp,
+    lineHeight = 20.sp,
+    letterSpacing = 0.sp
+)
+
+val textBodySemiBoldOpenSans = TextStyle(
+    fontFamily = openSansFontFamily,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 16.sp,
     lineHeight = 20.sp,
     letterSpacing = 0.sp
 )

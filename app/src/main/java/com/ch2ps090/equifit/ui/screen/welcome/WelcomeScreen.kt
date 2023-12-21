@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ch2ps090.equifit.theme.Dark1
 import com.ch2ps090.equifit.theme.Dark2
@@ -31,6 +32,7 @@ import com.ch2ps090.equifit.theme.EquifitTheme
 import com.ch2ps090.equifit.theme.Primary
 import com.ch2ps090.equifit.theme.White
 import com.ch2ps090.equifit.ui.components.ButtonPrimary
+import com.ch2ps090.equifit.ui.navigation.Screen
 import com.ch2ps090.equifit.util.OnBoardingItems
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -40,7 +42,8 @@ import kotlinx.coroutines.launch
 @ExperimentalPagerApi
 @Composable
 fun WelcomeScreen(
-    navigateToHome: () -> Unit,
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
 ) {
     val items = OnBoardingItems.getData()
     val scope = rememberCoroutineScope()
@@ -57,7 +60,7 @@ fun WelcomeScreen(
                 count = items.size,
                 state = pageState,
             ) { page ->
-                OnBoardingItem(item = items[page], navigateToHome)
+                OnBoardingItem(item = items[page], navController)
             }
         }
         BottomSection(size = items.size, index = pageState.currentPage)
@@ -135,9 +138,8 @@ fun Indicator(isSelected: Boolean) {
 @Composable
 fun OnBoardingItem(
     item: OnBoardingItems,
-    navigateToHome: () -> Unit,
+    navController: NavHostController,
 ) {
-    val navController = rememberNavController()
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -166,7 +168,7 @@ fun OnBoardingItem(
                     text = "Start Now",
                     modifier = Modifier.padding(top = 24.dp),
                     onClick = {
-                        navigateToHome()
+                        navController.navigate(Screen.Login.route)
                     }
                 )
             }

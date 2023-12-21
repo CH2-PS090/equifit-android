@@ -6,16 +6,20 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.ch2ps090.equifit.di.Injection
 import com.ch2ps090.equifit.theme.EquifitTheme
 import com.ch2ps090.equifit.ui.navigation.NavigationItem
 import com.ch2ps090.equifit.ui.navigation.Screen
@@ -24,8 +28,13 @@ import com.ch2ps090.equifit.ui.screen.home.HomeScreen
 import com.ch2ps090.equifit.ui.screen.notification.NotificationScreen
 import com.ch2ps090.equifit.ui.screen.profile.ProfileScreen
 import com.ch2ps090.equifit.theme.Dark2
-import com.ch2ps090.equifit.ui.screen.auth.LoginScreen
-import com.ch2ps090.equifit.ui.screen.auth.RegisterScreen
+import com.ch2ps090.equifit.ui.common.UiState
+import com.ch2ps090.equifit.ui.common.ViewModelFactory
+import com.ch2ps090.equifit.ui.screen.auth.login.LoginScreen
+import com.ch2ps090.equifit.ui.screen.auth.register.RegisterScreen
+import com.ch2ps090.equifit.ui.screen.profile.edit.EditProfileScreen
+import com.ch2ps090.equifit.ui.screen.profile.privacy.PrivacyScreen
+import com.ch2ps090.equifit.ui.screen.profile.settings.SettingScreen
 import com.ch2ps090.equifit.ui.screen.welcome.WelcomeScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -34,88 +43,86 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 fun EquifitApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    viewModel: MainViewModel = viewModel(
+        factory = ViewModelFactory(Injection.provideRepository(LocalContext.current))
+    )
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    Scaffold(
-        bottomBar = {
-            if (
-                currentRoute != Screen.Welcome.route
-                && currentRoute != Screen.Login.route
-                && currentRoute != Screen.Register.route ) {
-                BottomBar(navController)
-            }
-        },
-        modifier = modifier
-    ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = Screen.Welcome.route,
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable(Screen.Welcome.route) {
-                WelcomeScreen(
-                    navigateToHome = {
-                        navController.navigate(Screen.Login.route)
-                    }
-                )
-            }
-            composable(Screen.Login.route) {
-                LoginScreen(
-                    navigateToRegister = {
-                        navController.navigate(Screen.Register.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            restoreState = true
-                            launchSingleTop = true
+    viewModel.getSession()
+    viewModel.uiState.collectAsState().value.let { uiState ->
+        when (uiState) {
+            is UiState.Success -> {
+                Scaffold(
+                    bottomBar = {
+                        if (
+                            currentRoute == Screen.Home.route
+                            || currentRoute == Screen.Camera.route
+                            || currentRoute == Screen.Notification.route
+                            || currentRoute == Screen.Profile.route
+                        ) {
+                            BottomBar(navController)
                         }
                     },
-                    navigateToHome = {
-                        navController.navigate(Screen.Home.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            restoreState = true
-                            launchSingleTop = true
+                    modifier = modifier
+                ) { innerPadding ->
+                    val isLogin = uiState.data.isLogin
+                    var destination = Screen.Welcome.route
+                    if (isLogin) {
+                        destination = Screen.Home.route
+                    } else {
+                        destination = Screen.Login.route
+                    }
+                    NavHost(
+                        navController = navController,
+                        startDestination = destination,
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        composable(Screen.Welcome.route) {
+                            WelcomeScreen(navController = navController)
+                        }
+                        composable(Screen.Login.route) {
+                            LoginScreen(navController = navController)
+                        }
+                        composable(Screen.Register.route) {
+                            RegisterScreen(navController = navController)
+                        }
+                        composable(Screen.Home.route) {
+                            HomeScreen()
+                        }
+                        composable(Screen.Camera.route) {
+                            CameraScreen()
+                        }
+                        composable(Screen.Notification.route) {
+                            NotificationScreen()
+                        }
+                        composable(Screen.Profile.route) {
+                            ProfileScreen(navController = navController)
+                        }
+                        composable(Screen.EditProfile.route) {
+                            EditProfileScreen(navController = navController)
+                        }
+                        composable(Screen.PrivacyPolicy.route) {
+                            PrivacyScreen(navController = navController)
+                        }
+                        composable(Screen.Settings.route) {
+                            SettingScreen(navController = navController)
                         }
                     }
-                )
+                }
             }
-            composable(Screen.Register.route) {
-                RegisterScreen(
-                    navigateToLogin = {
-                        navController.navigate(Screen.Login.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            restoreState = true
-                            launchSingleTop = true
-                        }
-                    },
-                    navigateToHome = {
-                        navController.navigate(Screen.Home.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            restoreState = true
-                            launchSingleTop = true
-                        }
-                    }
-                )
+
+            is UiState.Error -> {
+                // do nothing
             }
-            composable(Screen.Home.route) {
-                HomeScreen()
+
+            is UiState.Loading -> {
+                // do nothing
             }
-            composable(Screen.Camera.route) {
-                CameraScreen()
-            }
-            composable(Screen.Notification.route) {
-                NotificationScreen()
-            }
-            composable(Screen.Profile.route) {
-                ProfileScreen()
+
+            is UiState.Waiting -> {
+                // do nothing
             }
         }
     }
