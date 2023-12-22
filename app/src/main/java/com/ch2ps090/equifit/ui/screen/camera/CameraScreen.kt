@@ -116,9 +116,24 @@ fun CameraScreen(
                 when (getHistoryState) {
                     is UiState.Success -> {
                         val history = (getHistoryState as UiState.Success<GetHistoryResponse>).data
-                        LastHistory(
-                            history = history
-                        )
+                        if (history.result?.history != null) {
+                            LastHistory(
+                                history = history
+                            )
+                        } else {
+                            Box(
+                                modifier = modifier
+                                    .background(Dark2)
+                                    .fillMaxSize(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Text(
+                                    text = "Data Not Found",
+                                    style = textBodyRegularOpenSans,
+                                    color = White
+                                )
+                            }
+                        }
                     }
                     is UiState.Error -> {
                         Box(
@@ -410,11 +425,19 @@ fun LastHistory(
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun FormatedDate(dateString: String) {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-    val parsedDateTime = LocalDateTime.parse(dateString, formatter)
+fun FormatedDate(dateString: String = "2021-10-10T10:10:10.000Z") {
+    val formattedDate: String = if (dateString.isNotBlank() && dateString != "null") {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val parsedDateTime = LocalDateTime.parse(dateString, formatter)
 
-    Row (
+        parsedDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault())) +
+                "\n" +
+                parsedDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.getDefault()))
+    } else {
+        "Invalid Date" // Atur pesan default atau tindakan yang sesuai jika lastCheck null atau tidak valid
+    }
+
+    Row(
         modifier = Modifier
             .fillMaxWidth(),
     ) {
@@ -423,15 +446,9 @@ fun FormatedDate(dateString: String) {
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
-                text = parsedDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault())),
+                text = formattedDate,
                 style = textBodySemiBoldOpenSans,
                 color = White,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = parsedDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss", Locale.getDefault())),
-                style = textBodyRegularOpenSans,
-                color = Primary,
             )
         }
     }
