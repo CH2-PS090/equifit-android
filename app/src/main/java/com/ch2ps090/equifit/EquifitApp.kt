@@ -35,6 +35,7 @@ import com.ch2ps090.equifit.ui.common.UiState
 import com.ch2ps090.equifit.ui.common.ViewModelFactory
 import com.ch2ps090.equifit.ui.screen.auth.login.LoginScreen
 import com.ch2ps090.equifit.ui.screen.auth.register.RegisterScreen
+import com.ch2ps090.equifit.ui.screen.camera.InputDataBodyScreen
 import com.ch2ps090.equifit.ui.screen.home.detail.DetailExerciseScreen
 import com.ch2ps090.equifit.ui.screen.profile.contact.ContactScreen
 import com.ch2ps090.equifit.ui.screen.profile.edit.EditProfileScreen
@@ -107,6 +108,9 @@ fun EquifitApp(
                         }
                         composable(Screen.Camera.route) {
                             CameraScreen(navController = navController)
+                        }
+                        composable(Screen.InputDataBody.route) {
+                            InputDataBodyScreen(navController = navController)
                         }
                         composable(Screen.Notification.route) {
                             NotificationScreen(navController = navController)

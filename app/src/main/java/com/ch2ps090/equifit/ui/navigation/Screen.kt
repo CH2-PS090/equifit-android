@@ -7,6 +7,7 @@ sealed class Screen(val route: String) {
     object Home : Screen("home")
     object DetailExercise : Screen("detail/{exerciseName}")
     object Camera : Screen("camera")
+    object InputDataBody : Screen("input_data_body")
     object Notification : Screen("notification")
     object Profile : Screen("profile")
     object EditProfile : Screen("edit_profile")

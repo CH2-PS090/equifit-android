@@ -38,7 +38,6 @@ class LoginViewModel(private val repository: Repository): ViewModel() {
                         Log.e("LoginViewModel", "onFailure: ${response.message()}")
                     }
                 }
-
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     _uiState.value = UiState.Error(t.message.toString())
                     Log.e("LoginViewModel", "onFailure: ${t.message}")

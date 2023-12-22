@@ -49,7 +49,9 @@ import com.ch2ps090.equifit.ui.components.CardWithBackground
 import com.ch2ps090.equifit.ui.components.CardWorkout
 import com.ch2ps090.equifit.ui.navigation.Screen
 import com.ch2ps090.equifit.ui.screen.auth.register.LoadingIndicator
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -93,6 +95,9 @@ fun HomeScreen(
         currentTime.isAfter(LocalTime.MIDNIGHT) -> "Good Morning"
         else -> "Good Evening"
     }
+
+    val currentDate = LocalDateTime.now()
+    val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("EEE dd MMM"))
 
     Box(
         modifier = modifier
@@ -143,7 +148,7 @@ fun HomeScreen(
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = "Fri 22 Dec",
+                    text = formattedDate,
                     style = textBodyRegularOpenSans,
                     color = Primary
                 )
@@ -151,7 +156,7 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(20.dp))
             CardWithBackground(
                 imageResId = R.drawable.workout_1,
-                "Day 01 - Warm Up",
+                "Warm Up",
                 "| 07:00 - 08:00 AM"
             )
             Spacer(modifier = Modifier.height(30.dp))

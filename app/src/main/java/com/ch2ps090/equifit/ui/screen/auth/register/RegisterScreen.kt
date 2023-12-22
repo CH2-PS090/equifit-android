@@ -101,6 +101,8 @@ fun RegisterScreen(
                             viewModel = viewModel
                         )
                     }
+
+                    else -> {}
                 }
             }
         }

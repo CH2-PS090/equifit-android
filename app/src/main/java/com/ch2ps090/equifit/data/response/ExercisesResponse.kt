@@ -1,7 +1,5 @@
 package com.ch2ps090.equifit.data.response
 
-import com.google.gson.annotations.SerializedName
-
 class ExercisesResponse : ArrayList<ExercisesResponseItem>()
 
 data class ExercisesResponseItem(

@@ -211,7 +211,7 @@ fun NotificationScreen(
                     )
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = "7.34 AM",
+                        text = "6.17 AM",
                         style = textBodyRegularOpenSans,
                         color = Primary
                     )
@@ -244,7 +244,7 @@ fun NotificationScreen(
                     )
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = "7.34 AM",
+                        text = "5.29 AM",
                         style = textBodyRegularOpenSans,
                         color = Primary
                     )
@@ -277,7 +277,7 @@ fun NotificationScreen(
                     )
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = "7.34 AM",
+                        text = "4.48 AM",
                         style = textBodyRegularOpenSans,
                         color = Primary
                     )
@@ -310,7 +310,7 @@ fun NotificationScreen(
                     )
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = "7.34 AM",
+                        text = "2.17 AM",
                         style = textBodyRegularOpenSans,
                         color = Primary
                     )
